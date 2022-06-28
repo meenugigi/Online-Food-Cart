@@ -50,9 +50,11 @@
 							<ul class="list-horizontal">
 																				
 								<sec:authorize="hasAnyAuthority('ADMIN')">	
-									<li><td:text="${items.itemID}" />	</li>			
-									<a th:href="@{/admin/update-item/{itemID}(itemID=${items.itemID})}"><img th:src="@{${'/images/edit.png'}}" width=8% height="20"></a>
-									<a th:href="@{/admin/delete/{itemID}(itemID=${items.itemID})}"><img th:src="@{${'/images/delete.png'}}" width=8% height="20"></a>
+									<li><td:text="${items.itemID}" />	</li>	
+								<li sec:authorize="hasAnyAuthority('ADMIN')">			
+									<a th:href="@{/admin/update-item/{itemID}(itemID=${items.itemID})}"><img th:src="@{${'/images/edit.png'}}" width=45% height="20"></a></li>
+								<li sec:authorize="hasAnyAuthority('ADMIN')">	
+									<a th:href="@{/admin/delete/{itemID}(itemID=${items.itemID})}"><img th:src="@{${'/images/delete.png'}}" width=45% height="20"></a></li>
 							</ul>
 						</div>
 					
