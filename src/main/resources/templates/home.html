@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+</head>
+<body>
+<ul class="nav">
+<div class="user"> 
+<li class="nav-list">Hi, <span sec:authentication="principal.username"> User</span>
+<span sec:authentication="principal.authorities"> User</span></li></div>
+
+<li class="nav-list"><div sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></div></li>
+<li class="nav-list"> <a class="nav-link" th:href="@{/view-cart/{userName}(userName=${#authentication.principal.getUsername()})}">My Cart</a></li>
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')">
+<a class="nav-link" href="/admin/add-items">Add items</a></div></li>	
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')"> 			
+<a class="nav-link" th:href="@{/admin/add-restaurant}">Add restaurant</a></div>	</li>	
+<li class="nav-list"> <a class="nav-link"  th:href="@{/}">Dashboard</a></li>
+
+</ul>
+				
+
+<h2><div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+<div class="alert alert-primary" role="alert" th:text="${error}" th:if="${error}"></div></h2>
+	
+	
+<br><br>
+<div class = "main-content">
+
+				<tr th:each="restaurants: ${restaurants}">
+				<br><div class="card">	
+				<td><a th:href="@{/view-menu/{restaurant}(restaurant=${restaurants.restaurantID})}">
+				<img th:src="@{${'/images/'+restaurants.restCoverImage}}"  width="100%" height="180px" alt=""/></a></td>
+						
+				<div class = "container">
+					
+					
+						
+				<div class="block">
+					<a class="restaurant-name" th:href="@{/view-menu/{restaurant}(restaurant=${restaurants.restaurantID})}">
+						<td  th:text="${restaurants.restaurantName}" /></a>
+						
+						
+					<ul class="list-horizontal">
+						<div class="content" sec:authorize="hasAnyAuthority('ADMIN')"> 
+							<li>Item Code:<td th:text="${restaurants.restaurantID}" /></li>
+						
+					
+							<li>	<a class="admin" th:href="@{/admin/delete-restaurant/{restaurantID}(restaurantID=${restaurants.restaurantID})}">Delete</a></li>
+								</div>
+					</ul>
+					</div>
+					</div>
+					</div>
+					
+					</tr>
+				</div>
+</body>
+
+
+
+
+
+
+<style>
+
+.user{
+	font-size: 8px;
+	color: white;
+}
+h2{
+	text-align: left;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	background-color: #85adad;
+	}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 30%;
+  height: 230px;
+  background-color: white;
+  padding: 8px 8px;
+  
+}
+.block{
+	width: 100%;
+	margin: 0px;
+	background-color: #334d4d;
+	height: 44px;
+}
+
+.restaurant-name{
+	
+  text-decoration: none;
+  color: white;
+  padding: 4px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.content{
+	margin-left: 10px;
+	margin-top: 1px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.list-horizontal li {
+  display:inline-block;
+  display: inline;
+  color: #d9d9d9;
+}
+.list-horizontal li:before {
+  content: '\00a0\00a0\00a0\00a0\2022\00a0\00a0\00a0\00a0\00a0\00a0';
+  color:#bfbfbf;
+  font-size:11px;
+}
+.list-horizontal li:first-child:before {
+  content: '';
+}
+
+.admin{
+	color:#bfbfbf;
+}
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #334d4d;
+  text-align: right;
+}
+
+.nav-list {
+  float: right;
+}
+
+.nav-link {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background-color: #111;
+}
+
+.main-content {
+	display: inline-flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   font-size: 12px;
+}
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.main-content > div {
+  margin: 8px;
+}
+
+img {
+	 border-radius: 9px;
+    margin-bottom: 9px;
+}
+</style>
+
+
+</html>

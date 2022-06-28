@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+
+<ul class="nav">
+<div class="user"> 
+<li class="nav-list">Hi, <span sec:authentication="principal.username"> User</span>
+<span sec:authentication="principal.authorities"> User</span></li></div>
+
+<li class="nav-list"><div sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></div></li>
+<li class="nav-list"> <a class="nav-link" th:href="@{/view-cart/{userName}(userName=${#authentication.principal.getUsername()})}">My Cart</a></li>
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')">
+<a class="nav-link" href="/admin/add-items">Add items</a></div></li>	
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')"> 			
+<a class="nav-link" th:href="@{/admin/add-restaurant}">Add restaurant</a></div>	</li>	
+<li class="nav-list"> <a class="nav-link"  th:href="@{/}">Dashboard</a></li>
+
+</ul>
+
+	<form th:object="${mycart}" method="POST">
+	<!-- >div th:object="${quantity}"-->
+			
+			
+	
+	<div class="row">
+					<tr th:each="mycart: ${mycart}">
+					
+					<div class="column">
+					
+					<div class="w3-card-4" style="width:100%">
+					
+					<td><img th:src="@{${'/images/'+mycart.items.itemImage}}" width=100% height="200" alt=""/></td>
+						
+					<div class="w3-container ">
+					
+					<ul class="list-horizontal">
+						<li id="name"><b><td th:text="${mycart.items.itemName}" /></b></li>
+						<li><td>$<td th:text="${mycart.items.itemPrice}" /></li>
+						<li><td th:text="${mycart.itemQuantity}" /></div>
+					</ul>
+					
+					<ul class="list-horizontal">
+						<div sec:authorize="hasAnyAuthority('ADMIN')"> 
+							 <li><td>Username:<td><span sec:authentication="principal.username" > User</span></td></div>
+					
+						<div sec:authorize="hasAnyAuthority('ADMIN')"> 
+							<li><td>Item ID:<td th:text="${mycart.items.itemID}" /></div></li>
+					</ul>
+							
+					
+						<button id = "btn"><td><a th:href="@{/view-cart/delete/{userName}/{cartID}(cartID=${mycart.cartID}, userName=${#authentication.principal.getUsername()})}">Remove from Cart</a></td></button>
+						
+					</div>
+					</div>
+				 </tr>
+				
+				 <div>
+				
+						 <tr th:each="cartAmount: ${cartAmount}">
+							 <td>Total: </td><td>$</td>
+							 <td th:text= "${cartAmount.totalAmount}" />
+							 
+						 </tr>
+					
+				 </div>
+				
+				<button><a th:href="@{/place-order/{userName}(userName=${#authentication.principal.getUsername()})}">Proceed to checkout</a></button>
+
+</div>					
+</form>
+</body>
+
+
+
+<style>
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button #btn:hover {
+  opacity: 0.8;
+}
+
+#btn{
+	 background-color: red;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+}
+.row{
+	margin-top: 50px;
+}
+.user{
+	font-size: 12px;
+	color: white;
+}
+
+
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:   #334d4d;
+  text-align: right;
+}
+
+.nav-list {
+  float: right;
+}
+
+.nav-link {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background-color: #111;
+}
+
+
+
+ul {
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
+}
+#on-right{
+	text-align: right;
+}
+body{
+	background-color: #85adad;
+}
+
+#name{
+	font-size: 14px;
+}
+.w3-card-4{
+	color: white;
+	background-color:  #334d4d;
+}
+
+.list-horizontal li {
+  display:inline-block;
+  color: #d9d9d9;
+  font-size:11px;
+}
+.list-horizontal li:before {
+  content: '\2022\00a0\00a0';
+  color:#bfbfbf;
+  font-size:11px;
+}
+.list-horizontal li:first-child:before {
+  content: '';
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+  .column  {
+    width: 50%;
+  }
+  
+
+
+
+
+}
+
+</html>

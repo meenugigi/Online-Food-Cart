@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+<ul class="nav">
+<div class="user"> 
+<li class="nav-list">Hi, <span sec:authentication="principal.username"> User</span>
+<span sec:authentication="principal.authorities"> User</span></li></div>
+
+<li class="nav-list"><div sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></div></li>
+<li class="nav-list"> <a class="nav-link" th:href="@{/view-cart/{userName}(userName=${#authentication.principal.getUsername()})}">My Cart</a></li>
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')">
+<a class="nav-link" href="/admin/add-items">Add items</a></div></li>	
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')"> 			
+<a class="nav-link" th:href="@{/admin/add-restaurant}">Add restaurant</a></div>	</li>	
+<li class="nav-list"> <a class="nav-link"  th:href="@{/}">Dashboard</a></li>
+
+</ul>
+	
+	<div>
+		<tr th:each="show: ${show}">
+		<br>
+		<h3>Restaurant menu is empty!</h3>
+	</div>	
+		
+			
+<div class="row">
+				
+				<tr th:each="items: ${items}">
+					<div class="column">
+					
+					<div class="w3-card-4" style="width:100%">
+						<td><img th:src="@{${'/images/'+items.itemImage}}" width=100% height="200" alt=""/></td>
+					
+						<div class="w3-container ">
+							<ul class="list-horizontal">
+								<span id="name"><b><td th:text="${items.itemName}" /></b></span>
+								<li><td>$<td th:text="${items.itemPrice}" /></li>
+							<a id="on-right" th:href="@{/add-to-cart/{itemID}/{userName}(itemID=${items.itemID}, 
+								   userName=${#authentication.principal.getUsername()})}">
+								   <img th:src="@{${'/images/cart.png'}}" width=13% height="30">
+							</a>
+							</ul>
+							
+								
+							<ul class="list-horizontal">
+																				
+								<sec:authorize="hasAnyAuthority('ADMIN')">	
+									<li><td:text="${items.itemID}" />	</li>			
+									<a th:href="@{/admin/update-item/{itemID}(itemID=${items.itemID})}"><img th:src="@{${'/images/edit.png'}}" width=8% height="20"></a>
+									<a th:href="@{/admin/delete/{itemID}(itemID=${items.itemID})}"><img th:src="@{${'/images/delete.png'}}" width=8% height="20"></a>
+							</ul>
+						</div>
+					
+					</div>
+					</div>
+				</tr>
+				
+				
+</div>		
+	
+</form>
+		
+
+</body>
+
+
+
+<style>
+
+.row{
+	margin-top: 50px;
+}
+.user{
+	font-size: 12px;
+	color: white;
+}
+
+
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:   #334d4d;
+  text-align: right;
+}
+
+.nav-list {
+  float: right;
+}
+
+.nav-link {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background-color: #111;
+}
+
+
+
+ul {
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
+}
+#on-right{
+	text-align: right;
+}
+body{
+	background-color: #85adad;
+}
+
+#name{
+	font-size: 14px;
+}
+.w3-card-4{
+	color: white;
+	background-color:  #334d4d;
+}
+
+.list-horizontal li {
+  display:inline-block;
+  color: #d9d9d9;
+  font-size:11px;
+}
+.list-horizontal li:before {
+  content: '\2022\00a0\00a0';
+  color:#bfbfbf;
+  font-size:11px;
+}
+.list-horizontal li:first-child:before {
+  content: '';
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+  .column  {
+    width: 50%;
+  }
+  
+
+
+
+
+}
+
+
+</html>
+

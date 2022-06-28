@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<ul class="nav">
+<div class="user"> 
+<li class="nav-list">Hi, <span sec:authentication="principal.username"> User</span>
+<span sec:authentication="principal.authorities"> User</span></li></div>
+
+<li class="nav-list"><div sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></div></li>
+
+<li class="nav-list"> <a class="nav-link" th:href="@{/view-cart/{userName}(userName=${#authentication.principal.getUsername()})}">My Cart</a></li>
+
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')">
+<a class="nav-link" href="/admin/add-items">Add items</a></div></li>
+	
+<li class="nav-list"><div sec:authorize="hasAnyAuthority('ADMIN')"> 			
+<a class="nav-link" th:href="@{/admin/add-restaurant}">Add restaurant</a></div>	</li>	
+
+
+</ul>
+
+<h2>Thank you!</h2>
+<h2>Your order has been placed.</h2>
+
+
+</body>
+
+
+
+
+<style>
+h2{
+	text-align: center;
+}
+span{
+	color: white;
+}
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:   #334d4d;
+  text-align: right;
+}
+
+.nav-list {
+  float: right;
+}
+
+.nav-link {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background-color: #111;
+}
+
+
+
+ul {
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
+}
+#on-right{
+	text-align: right;
+}
+body{
+	background-color: #85adad;
+}
+
+
+
+.list-horizontal li {
+  display:inline-block;
+  color: #d9d9d9;
+  font-size:11px;
+}
+.list-horizontal li:before {
+  content: '\2022\00a0\00a0';
+  color:#bfbfbf;
+  font-size:11px;
+}
+.list-horizontal li:first-child:before {
+  content: '';
+}
+
+
+  
+
+
+
+
+}
+</html>

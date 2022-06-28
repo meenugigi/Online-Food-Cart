@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div th:if="${param.success}">
+	Registered successfully!
+</div>
+
+
+<form th:action="@{/registration}" method="post" th:object="${User}">
+<h2> SIGN UP</h2>
+
+<div class="container">
+  <label for="firstName">First name:</label><br>
+  <input type="text" id="firstName" name="firstName" th:field="*{firstName}"><br><br>
+  
+  <label for="lastName">Last name:</label><br>
+  <input type="text" id="lastName" name="lastName" th:field="*{lastName}"><br><br>
+  
+    <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" th:field="*{email}"><br><br>
+  
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password" th:field="*{password}"><br><br>
+  
+  <label for="contact">Contact:</label><br>
+  <input type="tel" id="contact" name="contact" th:field="*{contact}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+  
+  <br><br>
+
+  
+  <button type="submit">Register</button>
+  </div>
+  <span class="psw">Already Registered? <a th:href="@{/login}">Login</a></span>
+</form>
+
+</div>
+</body>
+
+
+
+
+<style>
+h2{
+	text-align: center;
+}
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	background-color: #85adad;
+	}
+form {
+	border: 3px solid #f1f1f1;
+	display: inline-block;
+	margin-top: 10px;
+	width: 400px;
+	height: 710px;
+	text-align: left;
+	background-color: white;
+	border-radius:6px;
+	}
+
+input[type=text], input[type=password], input[type=email], input[type=tel] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+	border-radius:6px;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.alert-danger {
+	color: #ff1a1a;
+}
+
+.container {
+  padding: 26px;
+}
+
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+  font-size: 12px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+</style>
+
+
+
+
+
+</html>
