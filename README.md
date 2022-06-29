@@ -1,7 +1,7 @@
 # Online-Food-Cart
 
 This is a Java spring boot application. 
-The application has been implemented using Spring Web MVC, Spring Security, Spring JDBC, Thymeleaf template, Hibernate and Tomcat.
+The application has been implemented using Spring Web MVC, Spring Security, Spring JDBC, Thymeleaf template, REST services, Hibernate and Tomcat.
 
 This application supports User and ADMIN roles. Users can view restaurants, restaurant menus, add items to the cart and place orders.
 ADMIN can add and delete restaurants, add, update or delete a restaurant menu, add items to cart and place orders.
